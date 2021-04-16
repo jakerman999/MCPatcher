@@ -516,11 +516,16 @@ class MainForm extends UserInterface {
 
     void showBetaWarning() {
         JOptionPane.showMessageDialog(frame,
-            "This is a pre-release version of MCPatcher and is not intended\n" +
+            /*"This is a pre-release version of MCPatcher and is not intended\n" +
                 "for general use.\n\n" +
                 "Please make backups of your mods, save files, and texture packs\n" +
                 "before using.  Report any problems in the thread for MCPatcher beta at\n" +
-                PatcherException.FORUM_URL,
+                PatcherException.FORUM_URL,*/
+            "This is a pre-release version of MCPatcher and is not intended\n" +
+                "for general use.\n\n" +
+                "Please make backups of your mods, save files, and texture packs\n" +
+                "before using.  Report any problems in the thread for MCPatcher beta to\n" +
+                "jakerman999 on github or the Better Than Wolves forums",
             "For testing only", JOptionPane.INFORMATION_MESSAGE
         );
     }

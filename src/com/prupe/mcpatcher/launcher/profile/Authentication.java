@@ -5,6 +5,7 @@ class Authentication {
     String accessToken;
     String uuid;
     String displayName;
+    Object properties;
 
     private Authentication() {
     }

@@ -27,7 +27,7 @@ final public class MCPatcher {
     /**
      * MCPatcher release number
      */
-    public static final int RELEASE_VERSION = 3;
+    public static final int RELEASE_VERSION = 4;
     /**
      * MCPatcher patch level
      */
@@ -35,7 +35,7 @@ final public class MCPatcher {
     /**
      * MCPatcher beta version if > 0
      */
-    public static final int BETA_VERSION = 0;
+    public static final int BETA_VERSION = 1;
     /**
      * MCPatcher version as a string
      */
