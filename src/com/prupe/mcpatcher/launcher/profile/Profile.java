@@ -7,7 +7,8 @@ import com.prupe.mcpatcher.JsonUtils;
 import com.prupe.mcpatcher.MCPatcherUtils;
 
 import java.io.File;
-import java.util.ArrayList;
+//import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class Profile {
     private static final String ALLOW_SNAPSHOT = "snapshot";
 
     private static final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("win");
-
+/*
     String name;
     String lastVersionId;
     String gameDir;
@@ -31,6 +32,25 @@ public class Profile {
     Resolution resolution;
     List<String> allowedReleaseTypes = new ArrayList<String>();
     String playerUUID;
+*/
+
+    String name;            // The profile name. Can include characters, numbers, punctuation, and whitespace
+    String type;		    // The profile type. Types are custom (manually created by the user), latest-release (uses the latest stable release), and latest-snapshot (uses the latest build of Minecraft).
+    String created;		    // An ISO 8601 formatted date which represents the time the profile was created.
+    String lastUsed;	    // An ISO 8601 formatted date which represents the last time the profile was used.
+    String icon;	        // An Base64-encoded image which represents the icon of the profile in the profiles menu.
+    String lastVersionId;   // The version ID that the profile targets. Version IDs are determined in the version.json in every directory in ~/versions
+    String gameDir;		    // The directory that this profile should use to save its content.
+    String javaDir;	        // The Java directory that the game will run on. This is by default the system's Java directory.
+    String javaArgs;	    // The start-up arguments for the profile. Those can have tangible experience in the game performance.
+    String logConfig;	    // The path to the logging configuration for the profile. This can be a XML file if the below setting is true
+    Boolean logConfigIsXML;	// Whether the logging configuration is a XML file or not.
+    Resolution resolution;	        // The start-up resolution of the game window
+
+
+
+
+
 
     public Profile() {
     }
@@ -89,8 +109,8 @@ public class Profile {
         }
         Profile profile = new Profile();
         profile.name = newName;
-        profile.allowedReleaseTypes.add(ALLOW_SNAPSHOT);
-        profile.allowedReleaseTypes.add(ALLOW_RELEASE);
+        //profile.allowedReleaseTypes.add(ALLOW_SNAPSHOT);
+        //profile.allowedReleaseTypes.add(ALLOW_RELEASE);
         profiles.add(newName, JsonUtils.newGson().toJsonTree(profile, Profile.class));
         JsonUtils.writeJson(json, ProfileList.getProfilesPath());
         return profile;
@@ -140,9 +160,9 @@ public class Profile {
         } else {
             args.put("game_directory", gameDir);
         }
-        Authentication authentication = profileList.authenticationDatabase.get(playerUUID);
+        Authentication authentication = profileList.authenticationDatabase.get(profileList.selectedUser.get("account"));
         if (authentication == null) {
-            authentication = profileList.authenticationDatabase.get(profileList.selectedUser);
+            authentication = profileList.authenticationDatabase.get(profileList.selectedUser.get("profile"));
         }
         if (authentication != null) {
             if (authentication.username != null) {
@@ -181,7 +201,7 @@ public class Profile {
     }
 
     private boolean isAllowed(String type) {
-        for (String s : allowedReleaseTypes) {
+        for (String s : Arrays.asList("custom", "latest-release", "latest-snapshot")) {
             if (type.equalsIgnoreCase(s)) {
                 return true;
             }
@@ -199,5 +219,10 @@ public class Profile {
 
     public boolean isSnapshotAllowed() {
         return isAllowed(ALLOW_SNAPSHOT);
+    }
+
+    @Override
+    public String toString() {
+        return (name + ", " + lastVersionId);
     }
 }
