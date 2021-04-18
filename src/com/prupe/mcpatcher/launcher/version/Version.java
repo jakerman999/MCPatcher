@@ -22,6 +22,7 @@ public class Version implements Comparable<Version> {
     private static final String TAG_LIBRARIES = "libraries";
     private static final String TAG_NAME = "name";
     private static final String TAG_JAR = "jar";
+    private static final String TAG_DOWNLOADS = "downloads";
 
     private static final String LEGACY = "legacy";
     private static final String LEGACY_VALUE = "${auth_player_name} ${auth_session}";
@@ -216,6 +217,7 @@ public class Version implements Comparable<Version> {
         updateDateField(json, TAG_TIME);
         updateDateField(json, TAG_RELEASE_TIME);
         json.remove(TAG_JAR);
+        json.remove(TAG_DOWNLOADS);
         if (extraLibraries != null) {
             for (Library library : extraLibraries) {
                 addLibrary(json, library);
